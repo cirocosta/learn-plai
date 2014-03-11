@@ -211,6 +211,41 @@ For each field of the variants there's a method for retrieving it:
 => 4
 ```
 
+
+The way one would bind one instance to a name would be:
+
+```scheme
+(define-type MisspelledAnimal
+  [caml (humps : number)]
+  [yacc (height : number)])
+
+(define ma1 : MisspelledAnimal (caml 2))
+
+; or, letting plai to infer:
+
+(define ma1 (caml 2))  ; not good, but it is possible.
+
+```
+
+Now, with **type-case** we are able to check some patterns in the construction of elements:
+
+```scheme
+(define (good? [ma : MisspelledAnimal]) : boolean
+  (type-case MisspelledAnimal ma
+    [caml (humps) (>= humps 2)]
+    [yacc (height) (> height 2.1)]))
+```
+
+and then, test it:
+
+```scheme
+(test (good? ma1) #t)
+(test (good? ma2) #f)
+```
+
+Both tests will pass :P
+
+
 ## Some cool things on Racket
 
 ### Local Binding
