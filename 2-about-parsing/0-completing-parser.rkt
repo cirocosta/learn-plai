@@ -15,13 +15,13 @@
     [(s-exp-number? s) (numC (s-exp->number s))]
     ; check if S is a list. If true,
     [(s-exp-list? s)
-      ; create sl mapping to s parsed to a list of s-expressions
+      ; create `sl` mapping to `s` parsed to a list of s-expressions
      (let ([sl (s-exp->list s)])
         ; will check the the symbol of the first elem of the s-exp list
        (case (s-exp->symbol (first sl))
-          ; instantiate plusC
+          ; instantiate plusC if the symbol is a '+'
          [(+) (plusC (parse (second sl)) (parse (third sl)))]
-          ; instantiate multC
+          ; instantiate multC if the symbol is a '*'
          [(*) (multC (parse (second sl)) (parse (third sl)))]
           ; something wrong
          [else (error 'parse "invalid list input")]))]
