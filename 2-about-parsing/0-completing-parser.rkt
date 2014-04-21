@@ -3,10 +3,8 @@
 ; defining the datastructure that we'll use for the parser.
 (define-type ArithC
   [numC (n : number)]
-  [plusC (r : ArithC)
-         (l : ArithC)]
-  [multC (r : ArithC)
-         (l : ArithC)])
+  [plusC (r : ArithC) (l : ArithC)]
+  [multC (r : ArithC) (l : ArithC)])
 
 ; given a s-expression, returns an ArtihC object.
 (define (parse [s : s-expression]) : ArithC
@@ -28,14 +26,9 @@
     ; if not a list and not a number, then it is an invalid thing.
     [else (error 'parse "invalid input")]))
 
-; Case sounds strange? that's because it is a bit.
-; Here comes its syntax:
 
-; case(expr
-;   [(datum ...) body ...]
-;   ...)
-
-; The 'case(expr)' is like initiating the switch statement with exp
-; being the switch expression and the 'datums' being the case expression
-; thinking of a switch. What comes after the '(datum)' is the code to
-; be executed.
+(define (interp [a : ArithC]) : number
+  (type-case ArithC a
+    [numC (n) n]
+    [plusC (l r) (+ (interp l) (interp r))]
+    [multC (l r) (* (interp l) (interp r))]))

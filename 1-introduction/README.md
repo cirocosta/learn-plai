@@ -150,6 +150,11 @@ For the first-class procedures we have to specify types as well.
 
 (define plus1 (lambda ([x : number]) : number (+ x 1)))
 
+; and also equal to
+
+(define (plus1 [n : number]) : number
+  (+ 1 n))
+
 (plus1 10)
 => -number
 => 11
@@ -173,6 +178,12 @@ Its syntax is:
            (field : type)]
     ...
   )
+
+; or
+
+(define-type ABSTRACT_CLASS
+  [subclass1 (field1 : type1)]
+  [subclass2 (field1 : type1) (field2 : typeN)])
 ```
 
 leading to:
@@ -185,7 +196,8 @@ leading to:
             (width : number)])
 ```
 
-A way that i like to think is: We have a constructor function called Shape, which is able to construct squares, circles and triangles. Suppose that we would like to check if we are talking about a curvy thing. How would we achieve that? Let's define a function for it and use it:
+
+A way that i like to think is: *We have a constructor function called Shape, which is able to construct squares, circles and triangles*. Suppose that we would like to check if we are talking about a curvy thing. How would we achieve that? Let's define a function for it and use it:
 
 ```scheme
 (define (curvy? [s : Shape]) : boolean
@@ -227,7 +239,19 @@ The way one would bind one instance to a name would be:
 
 ```
 
-Now, with **type-case** we are able to check some patterns in the construction of elements:
+#### Type-Case
+
+**type-case** lets us check some patterns in the construction of elements. It's syntax is:
+
+```scheme
+(type-case CLASS object
+  [subclass (field1 field2 .. fieldn) (true-expression) (else-expression)]
+  [subclass2 (field1 field2 .. fieldn) (true-expression) (else-expression)]
+  ...
+  )
+```
+
+Knowing that, here comes an example:
 
 ```scheme
 (define (good? [ma : MisspelledAnimal]) : boolean
@@ -247,6 +271,60 @@ Both tests will pass :P
 
 
 ## Some cool things on Racket
+
+### Conditionals
+
+Just like any other languages, racket introduces conditionals. It has `if`, `and`, `or` and `cond`.
+
+For `if ` the syntax is as follows:
+```scheme
+(if (expr1)
+  (expr2)   ; if expr1 is true
+  (expr3))  ; if expre1 is false
+```
+
+The `end` is a bit different. It forms something like *short circuits* by stopping and returning `#f` if an expression produces `#f` - and letting it go, otherwise. The `or` acts just like `and` but for `#t`.
+
+```scheme
+(define (reply s)
+  (if (and (string? s)
+           (>= (string-length s) 5)
+           (equal? "hello" (substring s 0 5)))
+      "hi!"
+      "huh?"))
+
+(reply "hello racket")
+=> "hi!"
+```
+
+Finally, `cond`. This is a way of putting a sequence of test expressions and then evaluating them. It acts like a `if - else if - else if - ... - else` expression.
+
+```scheme
+(define (reply-more s)
+  (cond
+   [(equal? "hello" (substring s 0 5))
+    "hi!"]
+   [(equal? "goodbye" (substring s 0 7))
+    "bye!"]
+   [(equal? "?" (substring s (- (string-length s) 1)))
+    "I don't know"]
+   [else "huh?"]))
+```
+
+### Case
+
+Just like `type-case`, racket implements `case`.
+
+`case` will evaluate `val-expr` and then use the result to select a *case-clause*. The selected clause will then be the first one with a datum whose quoted form is `equal?` to the result of the *val-expr*.
+
+```scheme
+(case val-expr
+  [(datum ...) (then-body ...)]
+  ...
+  [(datum ...) (then-body ...)]
+  [else then-body ...])
+```
+
 
 ### Local Binding
 
