@@ -1,0 +1,1 @@
+- //TODO parte do código/documentação está ainda em functions. Passar para cá.

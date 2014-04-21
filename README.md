@@ -7,6 +7,11 @@
 
 > What i'm learning while studying [Programming Languages: Application and Interpretation](http://cs.brown.edu/courses/cs173/2012/book/index.html)
 
+## Why this?
+
+This repo contains the basic knowledge about programming languages. The objective is to create a full language while learning its concepts.
+
+---
 
 For each dir there's a README file explaining some stuff.
 
