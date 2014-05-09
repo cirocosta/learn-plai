@@ -107,14 +107,13 @@ As this is a core functionality that we are adding to our language, this must, t
 But, as ArithS is the main entrance to our core structure, it has to implement it as well:
 
 ```scheme
-(define (desugar [as : ArithS]) : ArithC
-  (type-case ArithS as
-    [numS (n) (numC n)]
-    [plusS (l r) (plusC (desugar l) (desugar r))]
-    [multS (l r) (multC (desugar l) (desugar r))]
-    [bminusS (l r) (plusC (desugar l) (multC (numC -1) (desugar r)))]
-    [uminusS (e) (multC (numC -1) (desugar e))]
-    [ifS (c : ArithS) (y : ArithS) (n : ArithS)]))
+(define-type ArithS
+  [numS (n : number)]
+  [plusS (l : ArithS) (r : ArithS)]
+  [bminusS (l : ArithS) (r : ArithS)]
+  [uminusS (e: ArithS)]
+  [multS (l : ArithS) (r : ArithS)]
+  [ifS (c : ArithS) (y : ArithS) (n : ArithS)])
 ```
 
 As ArithS changed, so does desugar:

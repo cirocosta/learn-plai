@@ -22,6 +22,10 @@
 ; tornando-a passível de receber funções e aplicá-las. Apenas depois
 ; passaremos a tornar possível a definição de outras.
 
+; We'll firstly start the development of functions in our language only
+; by leting it receive some functions and applying (using racket's own
+; stuff).
+
 (define-type FunDefC
   [fdC (name : symbol)
        (arg: symbol)

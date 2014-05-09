@@ -19,16 +19,16 @@ The content presented here is based on some lecture notes by [prof. Gubi](http:/
 
 ## Content
 
-|         Name        | Description |
-| ------------------- | ----------- |
-| Introduction        |             |
-| About Parsing       |             |
-| Sugaring            |             |
-| Functions           |             |
-| Environments        |             |
-| Functions as Values |             |
-| Closures            |             |
-| Mutation            |             |
-| Variables           |             |
+|  #  |         Name        | Description |
+| --- | ------------------- | ----------- |
+|   1 | Introduction        |             |
+|   2 | About Parsing       |             |
+|   3 | Sugaring            |             |
+|   4 | Functions           |             |
+|   5 | Environments        |             |
+|   6 | Functions as Values |             |
+|   7 | Closures            |             |
+|   8 | Mutation            |             |
+|   9 | Variables           |             |
 
 ### MIT License
