@@ -1,4 +1,4 @@
-- //TODO parte do código/documentação está ainda em functions. Passar para cá.
+# Environments
 
 Com environments não precisamos nos preocupar com o problema de varrer duas vezes (sempre) o corpo da função (tinhamos que praticamente reescrever o programa e podíamos praticamente nem reescrever).
 
@@ -8,7 +8,9 @@ Não utilizamos aqui uma tabela de símbolos literalmente (não implementamos ha
 
 Precisamos então trocar apenas nosso interpretador, que passa a receber como argumento uma lista de associações: o environment.
 
-O interpretador então fará busca e troca em tempo de execução apenas.
+## Interpretador
+
+O interpretador então fará busca e troca em tempo de execução apenas. As associações serão conhecidas, unitariamente, como Bindings, sendo o environment um conjunto delas:
 
 ```scheme
 (define-type Binding
@@ -18,6 +20,8 @@ O interpretador então fará busca e troca em tempo de execução apenas.
 (define mt-env empty)
 (definy extend-env cons)
 ```
+
+Com a noção de environment não precisamos mais então de `subst` já que as trocas serão feitas por meio das associações - nos forçando a passar mais um argumento para o interp: o environment corrente.
 
 ```scheme
 (define (interp [a : ExprC] [env : Env] [fds : (listof FunDefC)]) : number
@@ -40,4 +44,19 @@ O interpretador então fará busca e troca em tempo de execução apenas.
     fds))]))
 ```
 
+Sendp a função `lookup` definida da seguinte maneira:
+
+```scheme
+(define (lookup [for : symbol] [env : Env]) : number
+  (cond
+    [(empty? env) (error 'lookup "name not found")]
+    [else (cond
+          [(symbol=? for (bind-name (first env)))
+                         (bind-val (first env))]
+          [else (lookup for (rest env))])]))
+```
+
+## Vantegens/Desvantagens de explicitar o ambiente
+
+Explicitar o mesmo pode ser interessante quando quisermos definir constantes da mesma forma que definimos funções já que quando o programa começa a ser interpretado algumas definições já estão disponíveis.
 

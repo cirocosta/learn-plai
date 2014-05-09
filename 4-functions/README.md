@@ -1,12 +1,12 @@
 # Functions
 
-Before jumping right into the code, some explanation have to be done:
+Before jumping right into the code, some explanation has to be done:
 
 - **declaration** is the contract that the function does;
-- **parameters** are not variables, bust a simple association between symbols and values;
+- **parameters** are not variables, but a simple association between symbols and values;
 - **application** is calling the function, which is an operation by itself.
 
-They are going to be defined by a new type, FunDefC:
+They are going to be defined by a new type, `FunDefC`:
 
 ```scheme
 (define-type FunDefC
