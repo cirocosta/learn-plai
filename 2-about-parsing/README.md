@@ -16,7 +16,7 @@ First, it takes a character stream and splits it into meaningful symbols defined
 
 ## Our first Language
 
-Our first language will only be valid for some simple arithmetic. We start by defining the most simple datastructure:
+Our first language will only be valid for some simple arithmetic. We start by defining our most simple datastructure:
 
 ```scheme
 (define-type ArithC
@@ -25,11 +25,14 @@ Our first language will only be valid for some simple arithmetic. We start by de
   [multC (l : ArithC) (r : ArithC)])
 ```
 
-then our parser, which will translate an s-expression to our internal datastructure
+This one will only have sum and multiplication.
+
+We have then to construct a parser, which will translate an s-expression to our internal datastructure.
 
 ```scheme
 
-; Given a s-expression, returns an ArtihC object.
+; Given a s-expression, returns an ArtihC object so that the interpreter
+; is able to understand what is being passed to it.
 
 (define (parse [s : s-expression]) : ArithC
   (cond
@@ -43,7 +46,7 @@ then our parser, which will translate an s-expression to our internal datastruct
     [else (error 'parse "invalid input")]))
 ```
 
-and then an interpreter which will handle our internal datastructure, evaluate it and return the result of it
+and also an interpreter which will handle our internal datastructure, evaluate it and return the result of it (in this case, a number):
 
 ```scheme
 (define (interp [a : ArithC]) : number

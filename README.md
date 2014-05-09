@@ -17,5 +17,18 @@ For each dir there's a README file explaining some stuff.
 
 The content presented here is based on some lecture notes by [prof. Gubi](http://www.ime.usp.br/~gubi/) from [MAC0316](https://uspdigital.usp.br/jupiterweb/obterDisciplina?sgldis=mac0316), the book mentioned above and some resources found on the web.
 
+## Content
+
+|         Name        | Description |
+| ------------------- | ----------- |
+| Introduction        |             |
+| About Parsing       |             |
+| Sugaring            |             |
+| Functions           |             |
+| Environments        |             |
+| Functions as Values |             |
+| Closures            |             |
+| Mutation            |             |
+| Variables           |             |
 
 ### MIT License
